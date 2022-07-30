@@ -63,8 +63,8 @@ function draw() {
     if (screenPrompt == true) {
         textSize(32); 
         fill('white'); 
-        text('Click to begin', width/2.3, height/2);
-        text('Scroll to the center of the screen to see the animation change.', width/4, (height/2)+64);
+        text('Click anywhere to begin', width/2.7, height/2);
+        text('Scroll to the center of the screen to see the animation change.', width/4.5, (height/2)+64);
     }
 
     // Only draw if there is at least one firework in the ultimate array
