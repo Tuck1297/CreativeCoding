@@ -1,8 +1,6 @@
 /**
  * Tucker Johnson
  * Creative Coding Spring 2022
- * 
- * Figure out how to remove old data - fix bug
  */
 // Variables that were needed by entire scope
 let ultArray = [];
@@ -10,7 +8,9 @@ let tail;
 let paths = 100;
 let width = innerWidth - 20;
 let height = innerHeight - 20;
-let screenPrompt = true; 
+let screenPrompt = true;
+let textDiv;
+let textDivOpacity = 1;
 
 // Class that defines and handles operations of all firework tails. 
 class Shape {
@@ -41,7 +41,7 @@ class Shape {
                 this.off.x += 0.01;
             }
             this.coor.y = (this.coor.y) + this.m * Math.sin(this.rai);
-            this.coor.y += noise(this.off.y+1) * this.m;
+            this.coor.y += noise(this.off.y + 1) * this.m;
             this.off.y += 0.02;
             this.coor.y -= this.grav;
             this.o -= 1;
@@ -56,15 +56,22 @@ function setup() {
     noiseSeed(5);
     angleMode(DEGREES);
     createCanvas(innerWidth - 20, innerHeight - 20);
+    textDiv = createDiv('').size(width - 200, 70);
+    textDiv.center();
+    textDiv.html('Click anywhere to begin... <br><br> Scroll to the center of the screen to see the animation change.');
+    textDiv.style('font-size', '32px');
+    textDiv.style('color', 'white');
+    textDiv.style('text-align', 'center');
 }
 // Draw P5 Class
 function draw() {
     background(0, 10);
-    if (screenPrompt == true) {
-        textSize(32); 
-        fill('white'); 
-        text('Click anywhere to begin', width/2.7, height/2);
-        text('Scroll to the center of the screen to see the animation change.', width/4.5, (height/2)+64);
+    if (screenPrompt == false) {
+        textDiv.remove();
+        // textSize(32);
+        // fill('white');
+        // text('Click anywhere to begin', width / 2.7, height / 2);
+        // text('Scroll to the center of the screen to see the animation change.', width / 4.5, (height / 2) + 64);
     }
 
     // Only draw if there is at least one firework in the ultimate array
@@ -84,7 +91,7 @@ function draw() {
 // When the mouse is released then create one firework instance
 function mouseReleased() {
     createFirework();
-    screenPrompt = false; 
+    screenPrompt = false;
 }
 // Create one unique instance of a firework
 function createFirework() {
